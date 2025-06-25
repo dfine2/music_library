@@ -4,6 +4,10 @@
     <meta charset="utf-8" />
   </head>
   <body>
-    {{song}}
+    <h1>{{ song.title }}</h1>
+    <ul>
+        <li>{{ song.show|default:song.album }}</li>
+
+    </ul>
   </body>
 </html>

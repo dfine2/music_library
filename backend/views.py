@@ -1,6 +1,6 @@
-from django.http import Http404
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, redirect, render
 
+from backend.forms import SongForm
 from backend.models import Song
 
 
@@ -11,9 +11,17 @@ def index(request):
 
 
 def song(request, song_id: str):
-    try:
-        song = Song.objects.get(pk=song_id)
-    except Song.DoesNotExist:
-        raise Http404("Song does not exist.")
+    song = get_object_or_404(Song, pk=song_id)
     context = {"song": song}
     return render(request, "song.html", context)
+
+
+def new_song(request):
+    if request.method == "POST":
+        form = SongForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("index")
+    else:
+        form = SongForm()
+    return render(request, "new_song.html", {"form": form})

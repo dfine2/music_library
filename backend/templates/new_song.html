@@ -1,0 +1,12 @@
+<h1>Create a new song</h1>
+
+{% if error_message %}
+<p><strong>{{ error_message }}</strong></p>
+{% endif %}
+
+<form action="{% url 'new_song'%}" method="post">
+  {% csrf_token %}
+  {{form.as_p}}
+  <button type="submit">Save</button>
+  <a href="{% url 'index' %}">Back to Song List</a>
+</form>
