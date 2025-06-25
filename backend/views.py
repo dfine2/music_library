@@ -1,15 +1,19 @@
-from django.http import HttpResponse
-from django.template import loader
+from django.http import Http404
+from django.shortcuts import render
 
 from backend.models import Song
 
 
 def index(request):
     song_list = Song.objects.order_by("title")
-    template = loader.get_template("index.html")
     context = {"songs": song_list}
-    return HttpResponse(template.render(context, request))
+    return render(request, "index.html", context)
 
 
-def song(request, song_title: str):
-    return HttpResponse(f"This is the page giving details for {song_title}.")
+def song(request, song_id: str):
+    try:
+        song = Song.objects.get(pk=song_id)
+    except Song.DoesNotExist:
+        raise Http404("Song does not exist.")
+    context = {"song": song}
+    return render(request, "song.html", context)
