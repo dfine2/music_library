@@ -19,9 +19,7 @@ class Song(models.Model):
     year = models.IntegerField(validators=[MinValueValidator(1000), MaxValueValidator(current_year)])
 
     def __str__(self):
-        return " - ".join(
-            [item for item in [self.title, self.show, self.album] if item]
-        )
+        return self.title
 
     @property
     def decade(self) -> Optional[str]:
