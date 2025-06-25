@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8" />
+  </head>
+  <body>
+    {% if songs %}
+    <ul>
+      {% for song in songs %}
+      <li>
+        <a href="/{{song.title}}/">{{song.title}}</a>
+      </li>
+      {% endfor %}
+    </ul>
+    {% else %}
+    <p>No polls are available.</p>
+    {% endif %}
+  </body>
+</html>
