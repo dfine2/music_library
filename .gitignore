@@ -200,3 +200,6 @@ yarn-error.log*
 # Ignore all migration files except __init__.py
 backend/migrations/**/[!__init__]*.py
 backend/migrations/**/__pycache__/
+
+# Ignore one-off scripts
+backend/scripts/**
