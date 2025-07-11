@@ -1,22 +1,23 @@
 import logo from './logo.svg';
 import './App.css';
-import { useState, useEffect } from "react";
+import { styled } from "@mui/material/styles";
+
+import Songs from "./pages/songs/Songs";
+
+const FullscreenContainer = styled("div")({
+  height: "100vh",
+  width: "100vw",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  background: "lightblue",
+});
 
 function App() {
-  const [songs, setSongs] = useState([]);
-  useEffect(() => {
-    fetch("http://localhost:8000/api/songs/")
-      .then((res) => res.json())
-      .then((songs) => {
-        setSongs(songs);
-      });
-  }, []);
   return (
-    <div>
-      {songs.map((song, index) => (
-        <div key={index}>{song.title}</div>
-      ))}
-    </div>
+    <FullscreenContainer>
+      <Songs />
+    </FullscreenContainer>
   );
 }
 
