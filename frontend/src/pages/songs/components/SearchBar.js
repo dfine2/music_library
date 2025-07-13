@@ -22,12 +22,11 @@ export default function SearchBar({ rows, setFilteredRows }) {
 
   return (
     <TextField
-      fullWidth
       variant="outlined"
       label="Search Songs"
       value={searchText}
       onChange={(e) => setSearchText(e.target.value)}
-      sx={{ mb: 2 }}
+      sx={{ mb: 2, width: "70%" }}
     />
   );
 }

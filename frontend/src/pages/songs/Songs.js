@@ -47,7 +47,7 @@ export default function Songs() {
   return (
     <StyledGrid>
       <Box sx={{ width: "100%", height: "100%" }}>
-        <SongTable songs={songs} />
+        <SongTable songs={songs} setSongs={setSongs} />
       </Box>
     </StyledGrid>
   );

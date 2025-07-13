@@ -52,7 +52,7 @@ export default function SongTable({ songs, setSongs }) {
         }}
         editMode="row"
         slots={{toolbar: SongToolbar}}
-        slotProps={{toolbar: {rows, setFilteredRows}}}
+        slotProps={{toolbar: {rows, setFilteredRows, setSongs}}}
         showToolbar
         experimentalFeatures={{ newEditingApi: true }}
         onProcessRowUpdateError={(error) => {
