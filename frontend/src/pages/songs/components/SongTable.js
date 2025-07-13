@@ -12,13 +12,15 @@ import {
 } from "@mui/x-data-grid";
 import { Add, Edit, Delete, Save, Cancel } from "@mui/icons-material";
 import SongToolbar from "./SongToolbar"
+import EditCell from "./EditCell"
 
-function column(field, headerName, { style } = {}, editable = false) {
+function column(field, headerName, { style, options } = {}, editable = false) {
   return {
     field: field,
     headerName: headerName,
     ...style,
     editable: editable,
+    ...options,
     flex: 1
   };
 }
@@ -29,7 +31,7 @@ export default function SongTable({ songs, setSongs }) {
     setRows(songs)
   }, [songs])
   const columns = [
-    column("title", "Name", {}, true),
+    column("title", "Name", {}, true, {renderEditCell: (params) => EditCell}),
     column("show", "Show or Album", {}, true),
     column("composer", "Composer or Artist", {}, true),
     column("lyricist", "Lyricist", {}, true),
