@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 
 import { styled } from '@mui/material/styles';
 import SongTable from "./components/SongTable";
-import { Grid } from "@mui/material";
+import { Grid, Box } from "@mui/material";
 
 const StyledGrid = styled(Grid)(({ theme }) => ({
   backgroundColor: "#fff",
@@ -19,6 +19,7 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
 
 export default function Songs() {
   const [songs, setSongs] = useState([]);
+
   useEffect(() => {
     fetch("http://localhost:8000/api/songs/")
       .then((res) => {
@@ -26,13 +27,29 @@ export default function Songs() {
       })
       .then((songs) => {
         setSongs(songs);
+        if (songs && songs.length > 0) {
+          const rows_from_songs = songs.map((song) => ({
+            id: song.id,
+            title: song.title,
+            composer: song.composer,
+            lyricist: song.lyricist,
+            artist: song.artist,
+            show: song.show,
+            album: song.album,
+            genre: song.genre,
+            character: song.character,
+            year: song.year,
+          }));
+        }
       });
   }, []);
 
   return (
-      <StyledGrid>
-        <SongTable songs={songs}/>
-      </StyledGrid>
+    <StyledGrid>
+      <Box sx={{ width: "100%", height: "100%" }}>
+        <SongTable songs={songs} />
+      </Box>
+    </StyledGrid>
   );
 }
 

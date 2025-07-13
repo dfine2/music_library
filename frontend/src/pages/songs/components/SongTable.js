@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import styled from "@emotion/styled";
 
 import {Tooltip, Box } from "@mui/material";
 
@@ -12,7 +11,7 @@ import {
   ToolbarButton,
 } from "@mui/x-data-grid";
 import { Add, Edit, Delete, Save, Cancel } from "@mui/icons-material";
-import SearchBar from "./SearchBar"
+import SongToolbar from "./SongToolbar"
 
 function column(field, headerName, { style } = {}, editable = false) {
   return {
@@ -23,30 +22,12 @@ function column(field, headerName, { style } = {}, editable = false) {
     flex: 1
   };
 }
-export default function SongTable({ songs }) {
-  const [allRows, setAllRows] = useState([]);
-  const [filteredRows, setFilteredRows] = useState([]);
-  const [rowsMode, setRowsMode] = useState({});
+export default function SongTable({ songs, setSongs }) {
+  const [rows, setRows] = useState([])
+  const [filteredRows, setFilteredRows] = useState([])
   useEffect(() => {
-    if (songs && songs.length > 0) {
-      const rows_from_songs = songs.map((song) => ({
-        id: song.id,
-        title: song.title,
-        composer: song.composer,
-        lyricist: song.lyricist,
-        artist: song.artist,
-        show: song.show,
-        album: song.album,
-        genre: song.genre,
-        character: song.character,
-        year: song.year,
-      }));
-      setAllRows(rows_from_songs);
-    }
-  }, [songs]);
-  useEffect(() => {
-    setFilteredRows(allRows);
-  }, [allRows]);
+    setRows(songs)
+  }, [songs])
   const columns = [
     column("title", "Name", {}, true),
     column("show", "Show or Album", {}, true),
@@ -58,13 +39,8 @@ export default function SongTable({ songs }) {
   ];
 
 
-  const SongGrid = styled(DataGrid)(({theme}) => {
-
-  })
   return (
-    <Box sx={{width: '100%', height: '100%'}}>
-      <SearchBar rows={allRows} setFilteredRows={setFilteredRows}/>
-      <SongGrid
+      <DataGrid
         rows={filteredRows}
         columns={columns}
         initialState={{
@@ -75,6 +51,8 @@ export default function SongTable({ songs }) {
           },
         }}
         editMode="row"
+        slots={{toolbar: SongToolbar}}
+        slotProps={{toolbar: {rows, setFilteredRows}}}
         showToolbar
         experimentalFeatures={{ newEditingApi: true }}
         onProcessRowUpdateError={(error) => {
@@ -82,6 +60,5 @@ export default function SongTable({ songs }) {
         }}
         pageSizeOptions={[5, 10]}
       />
-    </Box>
   );
 }
