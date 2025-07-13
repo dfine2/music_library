@@ -48,13 +48,13 @@ export default function SongTable({ songs }) {
     setFilteredRows(allRows);
   }, [allRows]);
   const columns = [
-    column("title", "Name"),
-    column("show", "Show or Album"),
-    column("composer", "Composer or Artist"),
-    column("lyricist", "Lyricist"),
-    column("genre", "Genre"),
-    column("year", "Year"),
-    column("character", "Character"),
+    column("title", "Name", {}, true),
+    column("show", "Show or Album", {}, true),
+    column("composer", "Composer or Artist", {}, true),
+    column("lyricist", "Lyricist", {}, true),
+    column("genre", "Genre", {}, true),
+    column("year", "Year", {}, true),
+    column("character", "Character", {}, true),
   ];
 
 
@@ -74,6 +74,7 @@ export default function SongTable({ songs }) {
             },
           },
         }}
+        editMode="row"
         showToolbar
         experimentalFeatures={{ newEditingApi: true }}
         onProcessRowUpdateError={(error) => {
