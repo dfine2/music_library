@@ -1,9 +1,10 @@
-import {useState, useEffect} from 'react';
-import {TextField, Box} from '@mui/material';
+import React from "react";
+
+import { useState, useEffect } from "react";
+import { TextField, Box } from "@mui/material";
 
 export default function SearchBar({ rows, setFilteredRows }) {
   const [searchText, setSearchText] = useState("");
-  console.log(setFilteredRows);
   useEffect(() => {
     const lower = searchText.toLowerCase();
     if (!searchText) {
